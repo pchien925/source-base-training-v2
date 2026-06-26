@@ -1,0 +1,990 @@
+import { AppConstants, apiUrl } from '.';
+
+const baseHeader = {
+    'Content-Type': 'application/json',
+};
+
+const multipartFormHeader = {
+    'Content-Type': 'multipart/form-data',
+};
+
+const apiConfig = {
+    auth: {
+        login: {
+            baseURL: `${apiUrl}api/token`,
+            method: 'POST',
+            headers: baseHeader,
+        },
+        registerOwener: {
+            baseURL: `${apiUrl}api/v1/auth/register/owner`,
+            method: 'POST',
+            headers: baseHeader,
+        },
+    },
+    account: {
+        getProfile: {
+            baseURL: `${apiUrl}api/v1/user/profile`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/account/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ACC_V',
+        },
+        getList: {
+            baseURL: `${apiUrl}api/v1/account/list`,
+            method: `GET`,
+            headers: baseHeader,
+            permissionCode: 'ACC_L',
+        },
+        createAdmin: {
+            baseURL: `${apiUrl}api/v1/account/create_admin`,
+            method: `POST`,
+            headers: baseHeader,
+            permissionCode: 'ACC_C_AD',
+        },
+        updateProfile: {
+            baseURL: `${apiUrl}api/v1/account/update_admin`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'ACC_U_AD',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/account/create`,
+            method: `POST`,
+            headers: baseHeader,
+            permissionCode: 'ACC_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/account/update`,
+            method: `PUT`,
+            headers: baseHeader,
+            permissionCode: 'ACC_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/account/delete/:id`,
+            method: `DELETE`,
+            headers: baseHeader,
+            permissionCode: 'ACC_D',
+        },
+        autocomplete: {
+            baseURL: `${apiUrl}api/v1/account/auto-complete`,
+            method: `GET`,
+            headers: baseHeader,
+        },
+        changePassword: {
+            baseURL: `${apiUrl}api/v1/account/change-password`,
+            method: `PUT`,
+            headers: baseHeader,
+            permissionCode: 'ACC_CP',
+        },
+    },
+    user: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/user/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'US_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/user/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'US_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/user/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'US_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/user/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'US_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/user/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'US_D',
+        },
+        autocomplete: {
+            baseURL: `${apiUrl}api/v1/user/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+        updateProfile: {
+            baseURL: `${apiUrl}api/v1/user/update-profile`,
+            method: 'PUT',
+            headers: baseHeader,
+        },
+    },
+    userIdentification: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/user-identification/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'U_ID_L',
+        },
+        logs: {
+            baseURL: `${apiUrl}api/v1/user-identification/logs`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'U_ID_LOG_L',
+        },
+        users: {
+            baseURL: `${apiUrl}api/v1/user-identification/users`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'U_ID_U',
+        },
+        unverifiedUsers: {
+            baseURL: `${apiUrl}api/v1/user-identification/unverified-users`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'U_ID_UN_U',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/user-identification/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'U_ID_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/user-identification/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'U_ID_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/user-identification/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'U_ID_U',
+        },
+        verify: {
+            baseURL: `${apiUrl}api/v1/user-identification/verify`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'U_ID_VE',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/user-identification/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'U_ID_D',
+        },
+        autocomplete: {
+            baseURL: `${apiUrl}api/v1/user-identification/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    car: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/car/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/car/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/car/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'CAR_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/car/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'CAR_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/car/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'CAR_D',
+        },
+        myList: {
+            baseURL: `${apiUrl}api/v1/car/my-list`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+        verify: {
+            baseURL: `${apiUrl}api/v1/car/verify`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'CAR_VE',
+        },
+        unavailableDates: {
+            baseURL: `${apiUrl}api/v1/car/:carId/unavailable-dates`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    carFeature: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/car-feature/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_FEA_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/car-feature/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_FEA_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/car-feature/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'CAR_FEA_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/car-feature/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'CAR_FEA_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/car-feature/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'CAR_FEA_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/car-feature/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    carBrand: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/car-brand/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_BRA_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/car-brand/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_BRA_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/car-brand/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'CAR_BRA_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/car-brand/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'CAR_BRA_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/car-brand/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'CAR_BRA_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/car-brand/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    carModel: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/car-model/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_MOD_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/car-model/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_MOD_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/car-model/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'CAR_MOD_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/car-model/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'CAR_MOD_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/car-model/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'CAR_MOD_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/car-model/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    carPricing: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/car-pricing/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_PRI_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/car-pricing/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_PRI_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/car-pricing/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'CAR_PRI_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/car-pricing/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'CAR_PRI_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/car-pricing/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'CAR_PRI_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/car-pricing/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    carCalendarException: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/car-calendar-exception/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_CAL_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/car-calendar-exception/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CAR_CAL_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/car-calendar-exception/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'CAR_CAL_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/car-calendar-exception/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'CAR_CAL_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/car-calendar-exception/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'CAR_CAL_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/car-calendar-exception/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    promotion: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/promotion/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'PROM_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/promotion/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'PROM_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/promotion/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'PROM_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/promotion/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'PROM_U',
+        },
+        changeState: {
+            baseURL: `${apiUrl}api/v1/promotion/change-state`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'PROM_C_S',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/promotion/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'PROM_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/promotion/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    coupon: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/coupon/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'COU_L',
+        },
+    },
+    booking: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/booking/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'BOOK_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/booking/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'BOOK_R',
+        },
+        myList: {
+            baseURL: `${apiUrl}api/v1/booking/my-list`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+        histories: {
+            baseURL: `${apiUrl}api/v1/booking/histories`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'BOOK_HIS_L',
+        },
+        confirm: {
+            baseURL: `${apiUrl}api/v1/booking/confirm`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'BOOK_CON_U',
+        },
+    },
+    transaction: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/payment/transaction/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'PAY_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/payment/transaction/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'PAY_V',
+        },
+        refundRequest: {
+            baseURL: `${apiUrl}api/v1/payment/refund/requests`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'PAY_REF_L',
+        },
+        approveRefund: {
+            baseURL: `${apiUrl}api/v1/payment/refund/approve`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'PAY_REF_A',
+        },
+        rejectRefund: {
+            baseURL: `${apiUrl}api/v1/payment/refund/reject`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'PAY_REF_R',
+        },
+    },
+    handoverReport: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/handover-reports/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'HAN_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/handover-reports/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'HAN_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/handover-reports/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'HAN_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/handover-reports/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'HAN_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/handover-reports/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'HAN_D',
+        },
+    },
+    supportRefType: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/support-ref-type/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'SRT_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/support-ref-type/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'SRT_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/support-ref-type/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'SRT_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/support-ref-type/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'SRT_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/support-ref-type/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'SRT_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/support-ref-type/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    category: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/category/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CA_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/category/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'CA_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/category/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'CA_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/category/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'CA_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/category/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'CA_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/category/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    supportRefTypeCategory: {
+        create: {
+            baseURL: `${apiUrl}api/v1/support-ref-type-category/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'SRTC_C',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/support-ref-type-category/delete-by-composite`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'SRTC_D',
+        },
+    },
+    supportTicket: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/support-tickets/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ST_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/support-tickets/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ST_V',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/support-tickets/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'ST_D',
+        },
+        assign: {
+            baseURL: `${apiUrl}api/v1/support-tickets/assign`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'ST_AS',
+        },
+        close: {
+            baseURL: `${apiUrl}api/v1/support-tickets/close`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'ST_CL',
+        },
+    },
+    file: {
+        download_video_resource: {
+            baseURL: `${AppConstants.mediaRootUrl}api/v1/file/download-video-resource`,
+            method: 'GET',
+            headers: multipartFormHeader,
+        },
+        upload_video: {
+            baseURL: `${AppConstants.mediaRootUrl}api/v1/file/upload-video`,
+            method: 'POST',
+            headers: multipartFormHeader,
+            permissionCode: 'FILE_U_V',
+        },
+        upload: {
+            baseURL: `${AppConstants.mediaRootUrl}api/v1/file/upload`,
+            method: 'POST',
+            headers: multipartFormHeader,
+            permissionCode: 'FILE_U',
+        },
+        image: {
+            baseURL: `${AppConstants.mediaRootUrl}admin/api/v1/image/upload`,
+            method: 'POST',
+            headers: multipartFormHeader,
+        },
+        video: {
+            baseURL: `${AppConstants.mediaRootUrl}admin/api/v1/video/upload`,
+            method: 'POST',
+            headers: multipartFormHeader,
+        },
+    },
+    settings: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/setting/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'SET_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/setting/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'SET_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/setting/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'SET_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/setting/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'SET_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/setting/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+        },
+        autocomplete: {
+            baseURL: `${apiUrl}api/v1/setting/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+        getByKey: {
+            baseURL: `${apiUrl}api/v1/setting/find-by-key`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'SET_V',
+        },
+    },
+    administrativeArea: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/administrative-area/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'AD_AREA_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/administrative-area/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'AD_AREA_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/administrative-area/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'AD_AREA_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/administrative-area/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'AD_AREA_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/administrative-area/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'AD_AREA_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/administrative-area/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+        getOrCreate: {
+            baseURL: `${apiUrl}api/v1/administrative-area/get-or-create`,
+            method: 'POST',
+            headers: baseHeader,
+        },
+    },
+    notification: {
+        getList: {
+            baseURL: `${apiUrl}api/v1/notification/list`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/notification/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/notification/create`,
+            method: 'POST',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/notification/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/notification/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        autocomplete: {
+            baseURL: `${apiUrl}api/v1/notification/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        myNotification: {
+            baseURL: `${apiUrl}api/v1/notification/my-notification`,
+            method: 'GET',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        changeState: {
+            baseURL: `${apiUrl}api/v1/notification/read`,
+            method: 'PUT',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        readAll: {
+            baseURL: `${apiUrl}api/v1/notification/read-all`,
+            method: 'PUT',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+        deleteAll: {
+            baseURL: `${apiUrl}api/v1/notification/delete-all`,
+            method: 'DELETE',
+            headers: baseHeader,
+            isRequiredTenantId: true,
+        },
+    },
+    groupPermission: {
+        getGroupList: {
+            baseURL: `${apiUrl}api/v1/role/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ROL_L',
+        },
+        getList: {
+            baseURL: `${apiUrl}api/v1/role/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ROL_L',
+        },
+        getPermissionList: {
+            baseURL: `${apiUrl}api/v1/permission/list`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'PER_L',
+        },
+        getById: {
+            baseURL: `${apiUrl}api/v1/role/get/:id`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ROL_V',
+        },
+        create: {
+            baseURL: `${apiUrl}api/v1/role/create`,
+            method: 'POST',
+            headers: baseHeader,
+            permissionCode: 'ROL_C',
+        },
+        update: {
+            baseURL: `${apiUrl}api/v1/role/update`,
+            method: 'PUT',
+            headers: baseHeader,
+            permissionCode: 'ROL_U',
+        },
+        delete: {
+            baseURL: `${apiUrl}api/v1/role/delete/:id`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'ROL_D',
+        },
+        autoComplete: {
+            baseURL: `${apiUrl}api/v1/role/auto-complete`,
+            method: 'GET',
+            headers: baseHeader,
+        },
+    },
+    management: {
+        reset: {
+            baseURL: `${apiUrl}api/v1/management/reset-data`,
+            method: 'DELETE',
+            headers: baseHeader,
+            permissionCode: 'MAG_RES',
+        },
+    },
+    analytics: {
+        overview: {
+            baseURL: `${apiUrl}api/v1/analytics/overview`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ANA_L',
+        },
+        pendingActions: {
+            baseURL: `${apiUrl}api/v1/analytics/dashboard/pending-actions`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ANA_DASH_L',
+        },
+        revenue: {
+            baseURL: `${apiUrl}api/v1/analytics/charts/revenue`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ANA_CHART_L',
+        },
+        carHeatmap: {
+            baseURL: `${apiUrl}api/v1/analytics/charts/car-heatmap`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ANA_CHART_L',
+        },
+        bookingState: {
+            baseURL: `${apiUrl}api/v1/analytics/charts/booking-state`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'ANA_CHART_L',
+        },
+    },
+    ownerAnalytics: {
+        overview: {
+            baseURL: `${apiUrl}api/v1/owner-analytics/overview`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'OW_ANA_L',
+        },
+        revenue: {
+            baseURL: `${apiUrl}api/v1/owner-analytics/charts/revenue`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'OW_ANA_CHART_L',
+        },
+        bookingStatus: {
+            baseURL: `${apiUrl}api/v1/owner-analytics/charts/booking-status`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'OW_ANA_CHART_L',
+        },
+        bookingTrend: {
+            baseURL: `${apiUrl}api/v1/owner-analytics/charts/booking-trend`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'OW_ANA_CHART_L',
+        },
+        carPerformance: {
+            baseURL: `${apiUrl}api/v1/owner-analytics/car-performance`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'OW_ANA_L',
+        },
+        topCars: {
+            baseURL: `${apiUrl}api/v1/owner-analytics/top-cars`,
+            method: 'GET',
+            headers: baseHeader,
+            permissionCode: 'OW_ANA_L',
+        },
+    },
+};
+
+export default apiConfig;
