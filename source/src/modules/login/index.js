@@ -34,7 +34,7 @@ const LoginPage = () => {
     const base64Credentials = Buffer.from(`${appAccount.APP_USERNAME}:${appAccount.APP_PASSWORD}`).toString('base64');
 
     const { execute, loading } = useFetch({
-        ...apiConfig.account.loginBasic,
+        ...apiConfig.auth.login,
         authorization: `Basic ${base64Credentials}`,
     });
 

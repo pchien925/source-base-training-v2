@@ -22,7 +22,7 @@ const useFetch = (apiConfig, { immediate = false, mappingData, mixinFuncs, param
                     cancelType,
                 );
                 error && setErrorCode(error);
-                if (!data?.result && data?.statusCode !== 200 && apiConfig.baseURL != apiUrl.account.loginBasic.baseURL) {
+                if (!data?.result && data?.statusCode !== 200 && apiConfig.baseURL != apiUrl.auth.login.baseURL) {
                     throw data;
                 }
                 if (isMounted()) {

@@ -14,11 +14,10 @@ export const navMenuConfig = [
         ],
         children: [
             {
-                label: <FormattedMessage defaultMessage="Quản trị viên" />,
-                key: 'admin',
-                path: routes.adminListPage.path,
+                label: <FormattedMessage defaultMessage="Nhân viên" />,
+                key: 'staff',
+                path: routes.staffListPage.path,
                 permission: [apiConfig.account.getList.permissionCode],
-                isSuperAdmin: true,
             },
         ],
     },

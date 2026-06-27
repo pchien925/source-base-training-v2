@@ -1,17 +1,19 @@
 import { KIND_STAFF } from '@constants';
 import apiConfig from '@constants/apiConfig';
 import { commonMessage } from '@locales/intl';
-import UserAdminListPage from '.';
+import StaffListPage from '.';
 import UserAdminSavePage from './UserAdminSavePage';
+
 const paths = {
-    adminsListPage: '/admins',
-    adminsSavePage: '/admins/:id',
+    staffsListPage: '/staffs',
+    staffsSavePage: '/staffs/:id',
 };
+
 export default {
-    adminListPage: {
-        path: paths.adminsListPage,
+    staffListPage: {
+        path: paths.staffsListPage,
         auth: true,
-        component: UserAdminListPage,
+        component: StaffListPage,
         permission: [apiConfig.user.getList.permissionCode],
         pageOptions: {
             objectName: commonMessage.user,
@@ -21,19 +23,19 @@ export default {
             },
         },
     },
-    adminSavePage: {
-        path: paths.adminsSavePage,
+    staffSavePage: {
+        path: paths.staffsSavePage,
         component: UserAdminSavePage,
         separateCheck: true,
         auth: true,
         permission: [apiConfig.user.create.permissionCode, apiConfig.user.update.permissionCode],
         pageOptions: {
             objectName: commonMessage.user,
-            listPageUrl: paths.adminsListPage,
+            listPageUrl: paths.staffsListPage,
             kind: KIND_STAFF,
             renderBreadcrumbs: (messages, t, title, options = {}) => {
                 return [
-                    { breadcrumbName: t.formatMessage(messages.user), path: paths.adminsListPage },
+                    { breadcrumbName: t.formatMessage(messages.user), path: paths.staffsListPage },
                     { breadcrumbName: title },
                 ];
             },
