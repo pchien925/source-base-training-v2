@@ -3,7 +3,7 @@ import useTranslate from '@hooks/useTranslate';
 import React from 'react';
 import apiConfig from '@constants/apiConfig';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { brandName, DEFAULT_TABLE_ITEM_SIZE } from '@constants';
+import {  DEFAULT_TABLE_ITEM_SIZE } from '@constants';
 import { BaseTable, BaseTooltip, ListPage, PageWrapper } from '@itz/react-cms-element';
 import routes from '../routes';
 import { commonMessage } from '@locales/intl';
