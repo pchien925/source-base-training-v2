@@ -2,6 +2,7 @@ import { PageNotAllowed, PageNotFound } from '@itz/react-cms-element';
 import LoginPage from '@modules/login/index';
 import ProfilePage from '@modules/profile/index';
 import adminsRoutes from '@modules/user/routes';
+import carBrandRoutes from '@modules/CarBrand/routes';
 /*
     auth
         + null: access login and not login
@@ -34,6 +35,7 @@ const routes = {
         title: 'Profile page',
     },
     ...adminsRoutes,
+    ...carBrandRoutes,
     // keep this at last
     notFound: {
         component: PageNotFound,

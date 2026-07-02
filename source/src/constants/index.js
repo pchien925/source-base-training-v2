@@ -26,15 +26,14 @@ export const storageKeys = {
     USER_KIND: `${appName}-user-kind`,
 };
 
-
 export const AppConstants = {
     apiRootUrl: process.env.REACT_APP_API,
     contentRootUrl: `${process.env.REACT_APP_API}api/file/download/`,
     avatarRootUrl: `${process.env.REACT_APP_API}api/file/download/`,
+    logoUrl: `${process.env.REACT_APP_API}api/v1/file/download/`,
     mediaRootUrl: `${process.env.REACT_APP_API}`,
     langKey: 'vi',
 };
-
 
 export const THEMES = {
     DARK: 'dark',

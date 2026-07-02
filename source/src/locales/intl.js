@@ -133,5 +133,11 @@ export const commonMessage = defineMessages({
     log: 'logs',
     changeContent: 'Nội dung thay đổi',
     id: 'ID',
-    time :' Thời gian',
+    time: ' Thời gian',
+    carBrand: 'Hãng xe',
+    carBrandName: 'Tên hãng xe',
+    carBrandId: 'Mã hãng xe',
+    carModel: 'Model xe',
+    carModelName: 'Tên dòng xe',
+    carModelNumber: 'Số chỗ ngồi',
 });
