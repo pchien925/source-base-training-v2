@@ -55,7 +55,7 @@ const CarModelSavePage = ({ pageOptions }) => {
         },
     });
     return (
-        <PageWrapper loading={loading} routes={pageOptions.renderBreadcrumb(commonMessage, translate, title, { carBrandName })}>
+        <PageWrapper loading={loading} routes={pageOptions.renderBreadcrumb(commonMessage, translate, title, { carBrandName, brandId })}>
             <CarModelForm
                 setIsChangedFormValues={setIsChangedFormValues}
                 dataDetail={detail ? detail : {}}

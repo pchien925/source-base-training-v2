@@ -3,7 +3,7 @@ import useTranslate from '@hooks/useTranslate';
 import React from 'react';
 import apiConfig from '@constants/apiConfig';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { DEFAULT_TABLE_ITEM_SIZE } from '@constants';
+import { brandName, DEFAULT_TABLE_ITEM_SIZE } from '@constants';
 import { BaseTable, BaseTooltip, ListPage, PageWrapper } from '@itz/react-cms-element';
 import routes from '../routes';
 import { commonMessage } from '@locales/intl';
@@ -38,9 +38,12 @@ const CarModelListPage = ({ pageOptions }) => {
                 const params = mixinFuncs.prepareGetListParams(queryFilter);
                 mixinFuncs.handleFetchList({ ...params, brandId });
             };
+            funcs.getCreateLink = () => {
+                return `${location.pathname}/create?carBrandName=${carBrandName}`;
+            };
             const changeFilter = funcs.changeFilter;
             funcs.changeFilter = (filter) => {
-                changeFilter({ ...filter, brandId });
+                changeFilter({ ...filter, brandId, carBrandName });
             };
 
             funcs.additionalActionColumnButtons = () => ({
@@ -141,10 +144,10 @@ const CarModelListPage = ({ pageOptions }) => {
             placeholder: translate.formatMessage(commonMessage.carModelName),
         },
         {
-            key: 'seatNumber',
+            key: 'seatCount',
             placeholder: translate.formatMessage(commonMessage.carModelNumber),
         },
-    ];
+    ];  
 
     return (
         <PageWrapper routes={pageOptions.renderBreadcrumb(commonMessage, translate, null, { carBrandName })}>
