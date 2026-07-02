@@ -76,6 +76,12 @@ export const statusUserOptions = [
     { value: STATUS_ACTIVE, label: commonMessage.statusActive, color: '#00A648' },
     { value: STATUS_INACTIVE, label: commonMessage.statusLock, color: '#CC0000' },
 ];
+
+export const statusCarOptions = [
+    { value: STATUS_ACTIVE, label: commonMessage.statusActive, color: '#00A648' },
+    { value: STATUS_INACTIVE, label: commonMessage.statusLock, color: '#CC0000' },
+];
+
 export const formSize = {
     small: '700px',
     normal: '800px',
@@ -126,7 +132,6 @@ export const settingKeyName = {
     GROUP_SEPARATOR: 'group_separator',
 };
 
-
 export const dateTimeOptions = [
     { value: DEFAULT_FORMAT_BASIC, label: DEFAULT_FORMAT_BASIC },
     { value: DATE_DISPLAY_FORMAT, label: DATE_DISPLAY_FORMAT },
@@ -159,7 +164,6 @@ export const groupPermissionKinds = [
         label: commonMessage.admin,
     },
 ];
-
 
 export const daysOfWeekSchedule = [
     { value: 'monday', label: dayOfWeek.monday },

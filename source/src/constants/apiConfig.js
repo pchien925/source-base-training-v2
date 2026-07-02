@@ -698,7 +698,6 @@ const apiConfig = {
         upload: {
             baseURL: `${AppConstants.mediaRootUrl}api/v1/file/upload`,
             method: 'POST',
-            headers: multipartFormHeader,
             permissionCode: 'FILE_U',
         },
         image: {
