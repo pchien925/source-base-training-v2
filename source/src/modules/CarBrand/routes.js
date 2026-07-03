@@ -79,6 +79,7 @@ export default {
                 const carBrandName = option.carBrandName;
                 return [
                     { breadcrumbName: t.formatMessage(messages.carBrand), path: paths.carBrandListPage },
+                    { breadcrumbName: carBrandName, path: paths.carModelListPage.replace(':brandId', option.brandId) + `?carBrandName=${carBrandName}` },
                     { breadcrumbName: title },
                 ];
             },
